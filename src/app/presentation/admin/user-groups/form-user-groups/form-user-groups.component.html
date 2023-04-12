@@ -1,0 +1,47 @@
+<div class="box-form">
+    <div>
+        <span class="close" title="Đóng" (click)="closeForm()"></span>
+        <h3>{{data.id? "Sửa": "Thêm"}} người dùng</h3>
+        <hr>
+        <form>
+            <div>
+                <label for="">Họ và tên <span>(*)</span></label>
+                <div>
+                    <input type="text" name="fullname" [class.error]="errorForm.fullname" (keyup)="checkFullname()"
+                        (focusout)="checkFullname()" [(ngModel)]="data.fullname" placeholder="Họ và tên">
+                    <p *ngIf="errorForm.fullname" class="errorText">{{errorForm.fullname}}</p>
+                </div>
+            </div>
+            <div>
+                <label for="">Tên đăng nhập <span>(*)</span></label>
+                <div>
+                    <input type="text" name="username" [class.error]="errorForm.username" (keyup)="checkUsername()"
+                        (focusout)="checkUsername()" [disabled]="data.id" autocomplete="off" [(ngModel)]="data.username"
+                        placeholder="Tên đăng nhập">
+
+                    <p *ngIf="errorForm.username" class="errorText">{{errorForm.username}}</p>
+                </div>
+            </div>
+            <div>
+                <label for="">Mật khẩu <span>(*)</span>&nbsp;<a href="javascript:void(0)" class="change-password" *ngIf="!data.id" (click)="changePassword = !changePassword">{{changePassword? "Hủy bỏ": "Thay đổi mật khẩu"}}</a></label>
+                <div>
+                    <input type="password" name="password" *ngIf="!data.id || (data.id && changePassword)" [class.error]="errorForm.password" (keyup)="checkPassword()"
+                        (focusout)="checkPassword()" autocomplete="off" [(ngModel)]="data.password"
+                        placeholder="Mật khẩu">
+                    <p *ngIf="errorForm.password" class="errorText">{{errorForm.password}}</p>
+                </div>
+            </div>
+            <div>
+                <label for="">Nhóm người dùng</label>
+                <!-- <div>
+                    <app-chips [(listsChoice)]="data.userGroups"  [service]="UserGroupsService"></app-chips>
+                </div> -->
+            </div>
+            <div class="manipulation">
+                <button (click)="save()">Lưu</button>
+                <button (click)="save(true)">Lưu và đóng</button>
+                <button (click)="closeForm()">Hủy bỏ</button>
+            </div>
+        </form>
+    </div>
+</div>

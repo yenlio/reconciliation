@@ -1,0 +1,38 @@
+.role {
+  display: flex;
+  align-items: flex-start;
+}
+
+#page-user {
+  .box-tables {
+    height: calc(100vh - 345px);
+  }
+}
+.functions {
+  .add:hover,
+  .edit:hover,
+  .searchItem:hover {
+    background-color: #4593b9;
+    border: 1px solid #4593b9;
+  }
+  .cancel:hover {
+    background-color: #9d0404;
+    border: 1px solid #9d0404;
+  }
+}
+.searchItem:hover {
+  background-color: #4593b9;
+  border: 1px solid #4593b9;
+}
+.errorText {
+  font-size: 10px;
+  font-weight: bold;
+  color: #d80000;
+  position: absolute;
+  top: calc(100% + 0px);
+  left: 0px;
+}
+.disabled {
+  background-color: #777777 !important;
+  border: 1px solid #777777 !important;
+}

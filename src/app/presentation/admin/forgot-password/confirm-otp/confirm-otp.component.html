@@ -1,0 +1,56 @@
+<section id="page-confirm-otp">
+  <mat-grid-list cols="3">
+    <mat-grid-tile colspan="3">
+      <mat-card>
+        <mat-card-header color="primary" class="logo">
+          <mat-card-title>{{ "confirmOtpTitle" | translate }}</mat-card-title>
+        </mat-card-header>
+        <form>
+          <mat-form-field
+            class="otp-field"
+            appearance="fill"
+            style="width: 100% !important"
+          >
+            <mat-label>{{ "confirmCode" | translate }}</mat-label>
+            <input
+              matInput
+              type="number"
+              (click)="change()"
+              [formControl]="otpCode"
+              [errorStateMatcher]="matcher"
+            />
+            <mat-error *ngIf="otpCode.hasError('required')">
+              Mã xác nhận không để <strong>trống!</strong>
+            </mat-error>
+          </mat-form-field>
+          <div class="forgot-submit">
+            <button
+              type="submit"
+              mat-raised-button
+              color="primary"
+              (click)="submitOtp()"
+            >
+              {{ "update" | translate }}
+            </button>
+          </div>
+        </form>
+        <div>
+          <div class="resendMessage">
+            {{ "resendMessage" | translate: { email: email } }}
+            <span class="resend-button" *ngIf="!showtime" (click)="resend()">{{
+              "resend" | translate
+            }}</span>
+            <span
+              *ngIf="showtime"
+              disabled="true"
+              class="resend"
+              style="width: 50px; height: 50px"
+              >{{ counter | formatTime }}</span
+            >
+          </div>
+        </div>
+        <p class="information">Mọi thông tin xin liên hệ...</p>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</section>

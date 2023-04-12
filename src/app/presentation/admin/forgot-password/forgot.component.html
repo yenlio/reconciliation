@@ -1,0 +1,70 @@
+<section id="page-forgot" *ngIf="!statusConfirmOtp">
+  <mat-grid-list cols="3">
+    <mat-grid-tile colspan="3">
+      <mat-card>
+        <mat-card-header color="primary" class="logo">
+          <mat-card-title>{{"forgotPasswordTitle" | translate }}</mat-card-title>
+        </mat-card-header>
+        <form >
+          <mat-form-field style="width: 400px !important">
+            <mat-label>{{"username" | translate }}</mat-label>
+            <input [formControl]="username" placeholder="Nhập tên đăng nhập"  matInput [errorStateMatcher]="matcher"/>
+            <mat-error *ngIf="username.hasError('required')">
+              Tên đăng nhập không để <strong>trống!</strong>
+            </mat-error>
+          </mat-form-field>
+          <br />
+          <mat-form-field style="width: 400px !important">
+            <mat-label>{{"email" | translate }}</mat-label>
+            <input type="email" placeholder="Nhập email lấy lại mật khẩu" (click)="change()"  [formControl]="email" matInput [errorStateMatcher]="matcher"/>
+            <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
+              Vui lòng nhập email!
+            </mat-error>
+            <mat-error *ngIf="email.hasError('required')">
+              Email không để <strong>trống!</strong>
+            </mat-error>
+          </mat-form-field>
+          <span class="error" *ngIf="!email.hasError('email') && !email.hasError('required') && error.errorCode == 8">
+            {{error.errorMessage}}!
+          </span>
+          <br />
+          <div class="forgot-submit">
+            <button type="submit" mat-raised-button color="primary" (click)="forgot($event)">
+              {{"send" | translate }}
+            </button>
+          </div>
+        </form>
+        <!-- <form *ngIf="showForm">
+          <mat-form-field  class="otp-field" appearance="fill">
+            <mat-label>{{"confirmCode" | translate }}</mat-label>
+            <input matInput type="number" (click)="change()" [formControl]="otpCode" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="otpCode.hasError('required')">
+              Mã xác nhận không để <strong>trống!</strong>
+            </mat-error>
+            <button type="submit" (click)="submitOtp()" mat-raised-button matSuffix mat-icon-button><mat-icon>
+             arrow_forward
+            </mat-icon></button>
+          </mat-form-field>
+        </form> -->
+        
+        <!-- <div>
+          <div *ngIf="showForm" class="resendMessage">{{"resendMessage" | translate}}
+            <span class="resend-button" *ngIf="showtime" (click)="resend($event)">{{"resend" | translate }}</span>
+            <span *ngIf="show" disabled="true" class="resend"  style="width:50px; height: 50px " >{{counter | formatTime}}</span>          
+          </div>
+        </div> -->
+        <p class="information">Mọi thông tin xin liên hệ...</p>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</section>
+
+<app-confirm-otp
+  [username]="username.value"
+  [email]="email.value"
+  [transactionID]="transactionID"
+  *ngIf="statusConfirmOtp"
+>
+</app-confirm-otp>
+
+

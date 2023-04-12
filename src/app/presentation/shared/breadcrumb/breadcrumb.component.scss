@@ -1,0 +1,47 @@
+span {
+    a {
+        font-weight: 400;
+        font-size: 13px;
+        line-height: 16px;
+        /* identical to box height */
+
+        color: #61b3db;
+
+        &:hover {
+            color: blue;
+        }
+
+        &.no-link {
+            text-decoration: none;
+            cursor: context-menu;
+
+            &:hover {
+                color: inherit;
+            }
+        }
+    }
+
+    .next2 {
+        padding: 5px 3px;
+        margin: 0px 13px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-image: url("/assets/images/ic-next2.png");
+    }
+
+    &:last-child {
+        a {
+            text-decoration: none;
+            font-weight: bold;
+            font-weight: 400;
+            font-size: 13px;
+            /* identical to box height */
+
+            color: #0c1017;
+        }
+
+        span {
+            display: none;
+        }
+    }
+}

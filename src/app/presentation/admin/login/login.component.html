@@ -1,0 +1,60 @@
+<section id="page-login" *ngIf="!statusChangePasswordFirstLogin">
+  <mat-grid-list cols="3">
+    <mat-grid-tile colspan="3">
+      <mat-card>
+        <mat-card-header color="primary" class="logo">
+          <mat-card-title>{{ "loginTitle" | translate }}</mat-card-title>
+        </mat-card-header>
+        <form [formGroup]="loginForm" (submit)="login()">
+          <mat-form-field style="width: 400px !important">
+            <mat-label>{{ "username" | translate }}</mat-label>
+            <input formControlName="username" autofocus matInput />
+          </mat-form-field>
+          <br />
+          <mat-form-field style="width: 400px !important">
+            <mat-label>{{ "password" | translate }}</mat-label>
+            <input type="password" formControlName="password" matInput />
+          </mat-form-field>
+          <br />
+          <!-- <re-captcha
+            formControlName="recaptchaReactive"
+            siteKey="6LddP1YiAAAAAGI9je1PddAOypN-SeYR_z7aasl0"
+          >
+          </re-captcha>
+          <br /> -->
+          <!-- <canvas id="canvas" width="200" height="100" style="position: absolute; width: 200px; height: 100px; left: 0px; top: 0px; touch-action: none; user-select: none; cursor: default;"></canvas> -->
+
+          <br />
+
+
+           <div class="capcha">
+            <canvas id="canvas" width="350" height="50px"
+            style="transform-origin:0 0; background-color: rgba(196, 195, 195, 0.884)">
+
+          </canvas>
+          <mat-icon class="btn-reset" (click)="render()">refresh</mat-icon>
+           </div>
+
+          <!-- <button id="toggle" (click)="render()">refresh</button> -->
+          <br />
+          <mat-form-field style="width: 400px !important">
+            <mat-label>nhập mã capcha</mat-label>
+            <input type="text" formControlName="inputCapcha" matInput (focusout)="checkCapcha()" />
+            <p *ngIf="errorForm.capcha" class="errorText">
+              {{ errorForm.capcha }}
+            </p>
+          </mat-form-field>
+          <div class="forgot">
+            <a href="/forgot-password">{{ "forgotPassword" | translate }}</a>
+          </div>
+          <button type="submit" mat-raised-button color="primary" [disabled]="checkButton">
+            {{ "login" | translate }}
+          </button>
+        </form>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</section>
+
+<app-change-password-first-login [username]="username" [email]="email" [transactionID]="transactionID"
+  *ngIf="statusChangePasswordFirstLogin"></app-change-password-first-login>

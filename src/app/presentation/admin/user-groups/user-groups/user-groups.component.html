@@ -1,0 +1,100 @@
+<div>
+    <h3 class="title">Nhóm Người dùng</h3>
+
+    <div class="functions">
+        <button class="add" (click)="openFormAdd()">Tạo mới nhóm người dùng</button>
+    </div>
+    <div class="filters">
+        <div>
+            <label for="">Đối tác</label>
+            <input type="text" name="keyword" placeholder="Tên nhóm" (keyup.enter)="search()" (keyup)="search()">
+        </div>
+        <div>
+            <label for="">Từ khóa</label>
+            <input type="text" name="keyword" placeholder="Tên nhóm" (keyup.enter)="search()" (keyup)="search()">
+        </div>
+
+        <div>
+            <label for="">&nbsp;</label>
+            <button (click)="search()"></button>
+        </div>
+    </div>
+
+
+    <div class="box-datas">
+        <b>Danh sách nhóm người dùng</b>
+        <div class="pages">Hiện thị từ <b>1</b> đến <b>10</b>
+            trên <b>10</b> kết quả&nbsp;&nbsp;&nbsp;&nbsp;<span class="next"></span><span class="prev"></span>
+        </div>
+
+        <div class="box-tables">
+            <table class="styled-table scroll">
+                <thead>
+                    <tr>
+                        <th class="center">STT</th>
+                        <th>Tên nhóm</th>
+                        <th>Đối tác</th>
+                        <th class="center" style="width: 130px;">
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="center">1</td>
+                        <td>Quản trị viên</td>
+                        <td>Epay</td>
+                    </tr>
+                    <tr>
+                        <td class="center">1</td>
+                        <td>Nhân viên đối soát</td>
+                        <td>Epay</td>
+                    </tr>
+                    <tr>
+                        <td class="center">1</td>
+                        <td>Quản trị viên</td>
+                        <td>Napas</td>
+                    </tr>
+                    <tr>
+                        <td class="center">1</td>
+                        <td>Nhân viên đối soát</td>
+                        <td>Napas</td>
+                    </tr>
+                </tbody>
+                <!-- <tbody *ngIf="datasTable?.totalData > 0 && rights.view">
+                    <tr *ngFor="let item of datasTable.data; let i = index">
+                        <td class="center">{{i + datasTable?.start}}</td>
+                        <td>
+                            {{item?.fullname}}
+                        </td>
+                        <td>
+                            {{item?.username}}
+                        </td>
+                        <td><span *ngFor="let group of item.userGroups" class="item">{{group.name}}</span></td>
+                        <td class="center" *ngIf="rights.delete || rights.edit  || rights.view">
+                            <a class="delete" (click)="remove(item.id)" *ngIf="rights.delete" title="Xóa"
+                                href="javascript:void(0)"></a>
+                            <a class="edit" title="Chỉnh sửa" *ngIf="rights.edit || rights.view"
+                                (click)="openFormEdit(item)"></a>
+                        </td>
+                    </tr>
+                </tbody> -->
+                <!-- <tbody *ngIf="datasTable?.totalData == 0 && rights.view">
+                    <tr>
+                        <td class="center" [colSpan]="rights.delete || rights.edit  || rights.view? '5':'4'">
+                            Không tìm thấy dữ liệu</td>
+                    </tr>
+                </tbody>
+                <tbody *ngIf="!rights.view">
+                    <tr>
+                        <td class="center" [colSpan]="rights.delete || rights.edit  || rights.view? '5': '4'"
+                            style="color: #61b3db;">
+                            Bạn có không quyền xem dữ liệu</td>
+                    </tr>
+                </tbody> -->
+            </table>
+        </div>
+    </div>
+</div>
+
+<app-form-user-groups [data]="dataItem" *ngIf="showForm" [(showForm)]="showForm" (search)="search()">
+</app-form-user-groups>

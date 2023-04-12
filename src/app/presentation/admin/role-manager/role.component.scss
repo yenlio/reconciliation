@@ -1,0 +1,125 @@
+#page-role {
+  .filters:nth-of-type(1) {
+    // > div {
+    //   width: 100%;
+    // }
+
+    // > div:nth-last-child(2) {
+    //   width: auto;
+    // }
+
+    // > div:last-child {
+    //   width: 42px;
+    // }
+
+    mat-form-field {
+      width: 100%;
+    }
+
+    .mat-form-field-infix {
+      width: 100%;
+    }
+  }
+
+  .box-tables {
+    th:nth-child(1),
+    td:nth-child(1) {
+      &::before {
+        width: 15px;
+        height: 100%;
+        background-color: white;
+        position: absolute;
+        top: 0px;
+        content: "";
+        right: 100%;
+      }
+      position: sticky;
+      left: 0px;
+      background-color: white;
+    }
+    th:nth-child(2),
+    td:nth-child(2) {
+      position: sticky;
+      left: 50px;
+      background-color: white;
+    }
+    th:nth-child(3),
+    td:nth-child(3) {
+      position: sticky;
+      left: 100px;
+      background-color: white;
+      box-shadow: 0px 0px 1px #f1f1f1;
+    }
+    tr {
+      &:hover {
+        background-color: #f1f1f1;
+        td {
+          background-color: #f1f1f1;
+        }
+      }
+    }
+    height: calc(100vh - 221px);
+    // tr {
+    //   &:hover {
+    //     background-color: #f1f1f1;
+    //   }
+    // }
+  }
+}
+
+// table{
+//   table-layout: fixed;
+// }
+.center {
+  input {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.checkbox {
+  display: inline-block;
+}
+.disabled {
+  background-color: #777777 !important;
+  border: 1px solid #777777 !important;
+}
+a.button {
+  // text-decoration: none;
+  color: #222;
+}
+@media screen and (max-width: 991px) {
+  #page-reconciliation {
+    .box-tables {
+      height: calc(100vh - 292px);
+    }
+  }
+}
+
+// input[type="checkbox"]{
+//   pointer-events: none;
+// }
+
+.tboby {
+  // overflow:scroll;
+}
+.table-item:hover{
+  background-color: #dfdfdf;
+}
+
+.functions {
+  .create:hover,
+  .edit:hover {
+    background-color: #4593b9;
+    border: 1px solid #4593b9;
+  }
+  .delete:hover {
+    background-color: #9d0404;
+    border: 1px solid #9d0404;
+  }
+}
+.disabled-item{
+  pointer-events: none;
+  background-color: #f1f1f1 !important;
+}
+

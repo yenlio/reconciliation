@@ -1,0 +1,166 @@
+<div id="page-reconciliation-acv">
+  <h3 class="title">
+    {{ "reconciliationTransaction" | translate }} {{ "with" | translate }} ACV
+  </h3>
+
+  <!-- <div class="functions">
+        <button class="add" (click)="openFormAdd()">Tạo mới đối tác</button>
+    </div> -->
+  <span class="ic-filters" (click)="showFilter = !showFilter"></span>
+  <div class="filters" *ngIf="showFilter">
+    <!-- <div>
+            <label for="">{{'partnerName' | translate}}</label>
+            <input type="text" name="keyword" placeholder="{{'partnerName' | translate}}" value="ACV" disabled>
+        </div> -->
+    <div>
+      <label for="">{{ "partnerName" | translate }}</label>
+      <input type="text" name="keyword" placeholder="{{ 'partnerName' | translate }}" value="ACV" disabled />
+    </div>
+
+    <div>
+      <label for="">{{ "transaction" | translate }} {{ "fromDate" | translate }}</label>
+      <mat-form-field appearance="fill">
+        <mat-label></mat-label>
+        <input matInput [matDatepicker]="pickerFromDate" [(ngModel)]="filter.startDate" disabled />
+        <mat-datepicker-toggle matSuffix [for]="pickerFromDate"></mat-datepicker-toggle>
+        <mat-datepicker #pickerFromDate inline="true"></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div>
+      <label for="">{{ "transaction" | translate }} {{ "toDate" | translate }}</label>
+      <mat-form-field appearance="fill">
+        <mat-label></mat-label>
+        <input matInput [matDatepicker]="pickerToDate" [(ngModel)]="filter.endDate" disabled />
+        <mat-datepicker-toggle matSuffix [for]="pickerToDate"></mat-datepicker-toggle>
+        <mat-datepicker #pickerToDate inline="true"></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="functions">
+    <button class="export" [class.hide]="dataStatus == '00' || isEdit == false" (click)="confirm()">
+      {{ "confirm" | translate }}
+    </button>
+    <!-- <button class="run-again">
+      {{ "cancelResult" | translate }}
+    </button> -->
+    <button class="cancel" [class.hide]="dataStatus != '00' && isEdit" (click)="backToReconciliationTransaction()">
+      {{ "close" | translate }}
+    </button>
+  </div>
+
+  <div class="box-datas">
+    <b>{{ "listReconciliationTransaction" | translate }}
+      {{ "with" | translate }} ACV</b>
+    <div class="pages">
+      {{ "display" | translate }} {{ "from" | translate }}
+      <b>{{ pagination.start }}</b> {{ "to" | translate }}
+      <b>{{ pagination.end }}</b> {{ "on" | translate }}
+      <b>{{ pagination.total }}</b>
+      {{ "result" | translate }}&nbsp;&nbsp;&nbsp;&nbsp;<span class="next" (click)="next()"
+        [class.disable]="pagination.end == pagination.total"></span><span class="prev"
+        [class.disable]="pagination.start <= 1" (click)="prev()"></span>
+    </div>
+
+    <div class="box-tables">
+      <table class="styled-table scroll">
+        <thead>
+          <tr>
+            <th class="center" colspan="6"></th>
+            <th class="center" colspan="2">EPAY</th>
+            <th class="center" colspan="2">ACV</th>
+            <th class="center" style="width: 130px"></th>
+          </tr>
+          <tr>
+            <th class="center">{{ "stt" | translate }}</th>
+            <!-- <th class="center">{{ "dataSources" | translate }}</th> -->
+            <th class="center">{{ "transactionCode" | translate }}</th>
+            <th class="center">{{ "plateNumber" | translate }}</th>
+            <th class="center">{{ "ticketCode" | translate }}</th>
+            <th class="center">{{ "laneID" | translate }}</th>
+            <th class="center">{{ "time" | translate }}</th>
+            <th class="center">{{ "amountofMoney" | translate }}</th>
+            <th class="center">{{ "status" | translate }}</th>
+            <th class="center">{{ "amountofMoneyPartner" | translate }}</th>
+            <th class="center">{{ "statusPartner" | translate }}</th>
+            <th class="center" style="width: 130px">
+              {{ "manipulation" | translate }}
+            </th>
+          </tr>
+        </thead>
+        <tbody *ngIf="pagination.total > 0">
+          <tr *ngFor="let item of datasTable; let i = index">
+            <td class="center">{{ i + pagination.start }}</td>
+            <!-- <td class="center">{{ item.dataSources }}</td> -->
+            <td class="center">{{ item.transactionId }}</td>
+            <td class="center">{{ item.plateNumber }}</td>
+            <td class="center">{{ item.ticketCode }}</td>
+            <td class="center">{{ item.laneID }}</td>
+            <td class="center">
+              {{ item.transactionDate + "000" | date: "dd/MM/YYYY HH:mm:ss" }}
+            </td>
+            <td class="center">
+              <input type="number" [(ngModel)]="item.rcEpayAmount" *ngIf="!isACV && dataStatus != '00' && isEdit"
+                min="0" (change)="saveCache(item)" NegativeNumber />
+              <span *ngIf="isACV || dataStatus == '00' || !isEdit">{{ item.rcEpayAmount }}</span>
+            </td>
+            <td class="center">
+              <span *ngIf="isACV || dataStatus == '00' || !isEdit">{{ item.rcEpayStatusDescription }}</span>
+              <select name="" id="" [disabled]="dataStatus == '00'" [(ngModel)]="item.rcEpayStatus"
+                *ngIf="!isACV && dataStatus != '00' && isEdit" (change)="saveCache(item)">
+                <option value="{{ _item.value }}" *ngFor="let _item of status">
+                  {{ _item.name }}
+                </option>
+              </select>
+            </td>
+            <td class="center">
+              <input type="number" [(ngModel)]="item.rcAcvAmount" *ngIf="isACV && dataStatus != '00' && isEdit" min="0"
+                (change)="saveCache(item)" NegativeNumber />
+              <!-- {{ covertPrice(item.rcEpayAmount) }} -->
+              <span *ngIf="!isACV || dataStatus == '00' || !isEdit">{{ item.rcAcvAmount }}</span>
+            </td>
+            <td class="center">
+              <!-- {{ item.rcACVStatus }} -->
+              <span *ngIf="!isACV || dataStatus == '00' || !isEdit">{{ item.rcACVStatusDescription }}</span>
+              <select name="" id="" [(ngModel)]="item.rcACVStatus" *ngIf="isACV && dataStatus != '00' && isEdit"
+                (change)="saveCache(item)">
+                <option value="{{ _item.value }}" *ngFor="let _item of status">
+                  {{ _item.name }}
+                </option>
+              </select>
+            </td>
+            <td class="center">
+              <button class="button" (click)="acceptPartnerResult(item)" *ngIf="
+                  (item.rcEpayAmount != item.rcAcvAmount ||
+                  item.rcEpayStatus != item.rcACVStatus ) && (isEdit == true)
+                ">Chấp nhận KQ đối tác</button>
+              <!-- <a [routerLink]="'/admin/transaction/reconciliation/' + item.id">Kết quả xử lý sai lệch</a>
+                            <a [routerLink]="'/admin/transaction/reconciliation/' + item.id">Chi tiết xử lý sai lệch</a> -->
+            </td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="pagination.total == 0">
+          <tr>
+            <td class="center" colspan="10">
+              {{ "dataNotFound" | translate }}
+            </td>
+          </tr>
+        </tbody>
+        <!-- <tbody *ngIf="datasTable?.totalData == 0 && rights.view">
+                    <tr>
+                        <td class="center" [colSpan]="rights.delete || rights.edit  || rights.view? '5':'4'">
+                            Không tìm thấy dữ liệu</td>
+                    </tr>
+                </tbody>
+                <tbody *ngIf="!rights.view">
+                    <tr>
+                        <td class="center" [colSpan]="rights.delete || rights.edit  || rights.view? '5': '4'"
+                            style="color: #61b3db;">
+                            Bạn có không quyền xem dữ liệu</td>
+                    </tr>
+                </tbody> -->
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- <app-form-user [data]="dataItem" *ngIf="showForm" [(showForm)]="showForm" (search)="search()"></app-form-user> -->

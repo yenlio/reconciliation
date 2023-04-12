@@ -1,0 +1,146 @@
+<div id="page-user">
+  <h3 class="title">{{ "userManager" | translate }}</h3>
+
+  <div class="functions">
+    <button class="add" (click)="openFormAdd()">
+      {{ "createUser" | translate }}
+    </button>
+    <button
+      (click)="deleteUser()"
+      class="cancel"
+      [class.disabled]="itemChoice == false"
+    >
+      {{ "deleteUser" | translate }}
+    </button>
+  </div>
+
+  <div class="filters">
+    <div>
+      <label for="">{{ "userName" | translate }}</label>
+      <input
+        type="text"
+        placeholder="{{ 'userName' | translate }}..."
+        [(ngModel)]="filter.username"
+        (keyup.enter)="getAllData()"
+        (keyup)="getAllData()"
+      />
+    </div>
+
+    <div>
+      <label for="">{{ "email" | translate }}</label>
+      <input
+        type="text"
+        placeholder="{{ 'email' | translate }}"
+        [(ngModel)]="filter.email"
+        (keyup.enter)="getAllData()"
+        (keyup)="getAllData()"
+      />
+    </div>
+    <div>
+      <label for="">{{ "fullName" | translate }}</label>
+      <input
+        type="text"
+        placeholder="{{ 'fullName' | translate }}"
+        [(ngModel)]="filter.fullName"
+        (keyup.enter)="getAllData()"
+        (keyup)="getAllData()"
+      />
+    </div>
+    <div>
+      <label for="">{{ "phone" | translate }}</label>
+      <input
+        (keyup)="checkPhoneNumber()"
+        (focusout)="checkPhoneNumber()"
+        [class.error]="errorForm.checkPhoneNumber"
+        type="text"
+        placeholder="{{ 'phone' | translate }}"
+        [(ngModel)]="filter.phone"
+        (keyup.enter)="getAllData()"
+        (keyup)="getAllData()"
+      />
+      <p *ngIf="errorForm.phone" class="errorText">
+        {{ errorForm.phone }}
+      </p>
+    </div>
+
+    <div>
+      <label for="">&nbsp;</label>
+      <button class="searchItem" (click)="getAllData()"></button>
+    </div>
+  </div>
+  <div class="box-datas">
+    <b>{{ "listUser" | translate }}</b>
+    <div class="pages">
+      {{ "display" | translate }} {{ "from" | translate }}
+      <b>{{ pagination.start }}</b> {{ "to" | translate }}
+      <b>{{ pagination.end }}</b> {{ "on" | translate }}
+      <b>{{ pagination.total }}</b>
+      {{ "result" | translate }}&nbsp;&nbsp;&nbsp;&nbsp;<span
+        class="next"
+        (click)="next()"
+        [class.disable]="pagination.end == pagination.total"
+      ></span
+      ><span
+        class="prev"
+        [class.disable]="pagination.start <= 1"
+        (click)="prev()"
+      ></span>
+    </div>
+
+    <div class="box-tables">
+      <table class="styled-table scroll">
+        <thead>
+          <tr>
+            <th style="width: 30px"></th>
+            <th style="width: 50px; text-align: center">
+              {{ "stt" | translate }}
+            </th>
+            <th>{{ "userName" | translate }}</th>
+            <th>{{ "role" | translate }}</th>
+            <th>{{ "email" | translate }}</th>
+            <th>{{ "createDate" | translate }}</th>
+
+            <th class="center" style="width: 130px"></th>
+          </tr>
+        </thead>
+        <tbody
+          *ngFor="let item of userData; let i = index; let odd = odd"
+          [ngClass]="odd ? 'odd_col' : 'even_col'"
+        >
+          <tr>
+            <td>
+              <span
+                class="checkbox"
+                [class.choice]="item.userStatus == 0"
+                (click)="clickCheckBox(item)"
+              ></span>
+            </td>
+            <td style="text-align: center">{{ pagination.start + i }}</td>
+            <td>{{ item.username }}</td>
+            <td>
+              <div *ngFor="let role of item.roles">{{ role.name }}</div>
+            </td>
+            <td>{{ item.email }}</td>
+            <td>{{ item.createDate + "000" | date: "dd-MM-YYYY" }}</td>
+            <td>
+              <a
+                href="javascript:void(0)"
+                (click)="openFormAdd(item.username)"
+                >{{ "edit" | translate }}</a
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<app-form-user
+  [userData]="userData"
+  [dataItem]="dataItem"
+  *ngIf="showForm"
+  [(showForm)]="showForm"
+  (passDataUpdate)="editUser($event)"
+  (getAllData)="getAllData()"
+  [listRole]="listRole"
+></app-form-user>

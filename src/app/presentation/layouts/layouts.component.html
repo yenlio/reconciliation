@@ -1,0 +1,18 @@
+<div>
+  <app-header></app-header>
+  <div>
+    <app-navbar [class.show]="!openNavbar" [class.hide]="openNavbar"></app-navbar>
+    <span
+      class="ic-menu"
+      [class.show]="!openNavbar"
+      (click)="clickIconMenu()"
+    ></span>
+    <div class="content-page" [class.full-page]="openNavbar">
+      <div>
+        <app-breadcrumb></app-breadcrumb>
+        <router-outlet></router-outlet>
+      </div>
+      <app-footer></app-footer>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,104 @@
+<div id="page-role">
+  <h3 class="title">{{ "roleManagerPage" | translate }}</h3>
+  <!-- <div class="functions">
+        <button class="add" (click)="openFormAdd()">Tạo mới đối tác</button>
+    </div> -->
+
+  <div class="functions">
+    <button class="create" (click)="isEdit = false; addRole()">
+      {{ "create" | translate }}
+    </button>
+    <button
+      class="edit"
+      [disabled]="!itemIdChoice"
+      [class.disabled]="!itemIdChoice"
+      (click)="editForm()"
+    >
+      {{ "edit" | translate }}
+    </button>
+    <button
+      [disabled]="!itemIdChoice"
+      [class.disabled]="!itemIdChoice"
+      class="delete"
+      (click)="deleteRole()"
+    >
+      {{ "delete" | translate }}
+    </button>
+  </div>
+
+  <div class="box-datas">
+    <div class="pages">
+      <!-- {{ "display" | translate }} {{ "from" | translate }}
+    <b>{{ pagination.start }}</b> {{ "to" | translate }}
+    <b>{{ pagination.end }}</b> {{ "on" | translate }}
+    <b>{{ pagination.total }}</b>
+    {{ "result" | translate }}&nbsp;&nbsp;&nbsp;&nbsp;<span class="next" (click)="next()"
+      [class.disable]="pagination.end == pagination.total"></span><span class="prev"
+      [class.disable]="pagination.start <= 1" (click)="prev()"></span> -->
+    </div>
+
+    <div class="box-tables">
+      <table class="styled-table scroll">
+        <thead>
+          <tr>
+            <th class="center "><span class="checkbox"></span></th>
+            <th class="center ">{{ "stt" | translate }}</th>
+            <th class="center ">{{ "role" | translate }}</th>
+            <th *ngFor="let permission of permission" class="center">
+              {{ permission.description | translate }}
+            </th>
+            <!-- <th class="center">{{ "userManager" | translate }}</th>
+          <th class="center">{{ "roleManager" | translate }}</th>
+          <th class="center">{{ "deviationHandle" | translate }}</th>
+          <th class="center">{{ "processingStatus" | translate }}</th>
+          <th class="center">{{ "reconciliationReport" | translate }}</th>
+          <th class="center">{{ "detailTransaction" | translate }}</th>
+          <th class="center">{{ "viewSummary" | translate }}</th> -->
+          </tr>
+        </thead>
+        <tbody class="tboby">
+          <tr *ngFor="let item of datasTable; let i = index" class="table-item" [class.disabled-item]="item.name ==='ROLE_ADMIN'" >
+            <td class="center " [ngStyle]="{'background-color': (item.name ==='ROLE_ADMIN') ? '#f1f1f1' : ''}">
+              <span
+                class="checkbox"
+                [class.choice]="itemIdChoice == item.id"
+                (click)="clickRow(item)"
+              ></span>
+            </td>
+            <td class="center " [ngStyle]="{'background-color': (item.name ==='ROLE_ADMIN') ? '#f1f1f1' : ''}">{{ i + pagination.start }}</td>
+            <td class="left " [ngStyle]="{'background-color': (item.name ==='ROLE_ADMIN') ? '#f1f1f1' : ''}">{{ item.name }}</td>
+            <td *ngFor="let permission of permission" class="center">
+              <span
+                class="checkbox"
+                [class.choice]="checked(item.permission, permission)"
+                (click)="logPermission(item, permission)"
+              ></span>
+            </td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="!datasTable">
+          <tr>
+            <td class="center" colspan="11">
+              {{ "dataNotFound" | translate }}
+            </td>
+          </tr>
+        </tbody>
+        <!-- <tbody *ngIf="!rights.view">
+          <tr>
+            <td
+              class="center"
+              [colSpan]="
+                rights.delete || rights.edit || rights.view ? '5' : '4'
+              "
+              style="color: #61b3db"
+            >
+              Bạn có không quyền xem dữ liệu
+            </td>
+          </tr>
+        </tbody> -->
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- <app-form-user [data]="dataItem" *ngIf="showForm" [(showForm)]="showForm" (search)="search()"></app-form-user> -->

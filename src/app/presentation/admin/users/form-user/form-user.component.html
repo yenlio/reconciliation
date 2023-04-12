@@ -1,0 +1,101 @@
+<div class="box-form">
+  <div>
+    <span class="close" title="{{ 'close' | translate }}" (click)="closeForm()"></span>
+
+    <h3>
+      {{ (dataItem.id ? "edit" : "add") | translate }} {{ "user" | translate }}
+    </h3>
+    <hr />
+    <form [formGroup]="userForm">
+      <div style="width: 100%; height: calc(100vh - 500px); overflow: auto">
+        <div class="row">
+          <div class="column">
+            <label for="">{{ "userName" | translate }} <span>(*)</span></label>
+            <div>
+              <input [readonly]="dataItem.id !== 0" type="text" formControlName="username" autocomplete="off"
+                [(ngModel)]="dataItem.username" placeholder="{{ 'userName' | translate }}" (keyup)="checkUsername()"
+                [class.error]="errorForm.username" />
+              <p *ngIf="errorForm.username" class="errorText">
+                {{ errorForm.username }}
+              </p>
+            </div>
+          </div>
+
+          <div class="column">
+            <label for="">{{ "fullName" | translate }} <span>(*)</span></label>
+            <div>
+              <input (keyup)="checkFullname()" (focusout)="checkFullname()" [class.error]="errorForm.fullName"
+                type="text" formControlName="fullName" [(ngModel)]="dataItem.fullName"
+                placeholder="{{ 'fullName' | translate }}" />
+              <p *ngIf="errorForm.fullName" class="errorText">
+                {{ errorForm.fullName }}
+              </p>
+            </div>
+          </div>
+
+          <div *ngIf="dataItem.id == 0" class="column">
+            <label for="">{{ "passWord" | translate }} <span>(*)</span></label>
+            <div>
+              <input (focusout)="checkPassword()" (keyup)="checkPassword()" type="password" formControlName="password"
+                autocomplete="off" [(ngModel)]="dataItem.password" [class.error]="errorForm.password"
+                placeholder="{{ 'passWord' | translate }}" autocomplete="new-password" />
+              <p *ngIf="errorForm.password" class="errorText">
+                {{ errorForm.password }}
+              </p>
+            </div>
+          </div>
+
+          <div class="column">
+            <label>{{ "phone" | translate }} <span>(*)</span></label>
+            <div>
+              <input (keyup)="checkPhone()" (focusout)="checkPhone()" [class.error]="errorForm.phone"
+                formControlName="phone" type="text" [(ngModel)]="dataItem.phone"
+                placeholder="{{ 'phone' | translate }} " />
+              <p *ngIf="errorForm.phone" class="errorText">
+                {{ errorForm.phone }}
+              </p>
+            </div>
+          </div>
+
+          <div class="column">
+            <label>{{ "email" | translate }} <span>(*)</span></label>
+            <div>
+              <input (keyup)="checkEmail()" (focusout)="checkEmailDuplicate()" [class.error]="errorForm.email"
+                type="text" [(ngModel)]="dataItem.email" formControlName="email"
+                placeholder="{{ 'email' | translate }}" />
+              <p *ngIf="errorForm.email" class="errorText">
+                {{ errorForm.email }}
+              </p>
+            </div>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="role">
+            <label>{{ "role" | translate }}</label>
+            <table>
+              <tbody *ngFor="let option of listRole; let i = index" class="column">
+                <tr>
+                  <td style="width: 20px">
+                    <input class="input-role" type="checkbox" [checked]="checkedRole(option)" [value]="option.id"
+                      (change)="change($event, option)" [disabled]="option.name == this.isAdmin" />
+                  </td>
+                  <td>
+                    <label class="label-role" for="">{{ option.name }}</label>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="manipulation">
+        <button class="save" (click)="save()">{{ "save" | translate }}</button>
+        <button class="closepopup" (click)="closeForm()">
+          {{ "close" | translate }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+#page-reconciliation-napas {
+  .filters:nth-of-type(1) {
+    > div {
+      width: 100% !important;
+    }
+
+    > div:nth-last-child(2) {
+      width: auto;
+    }
+
+    mat-form-field {
+      width: 100%;
+    }
+
+    .mat-form-field-infix {
+      width: 100%;
+    }
+  }
+
+  .box-tables {
+    height: calc(100vh - 344px);
+  }
+}
+
+a.button {
+  // text-decoration: none;
+  color: #222;
+}
+
+.hide {
+  display: none;
+}
+
+.functions {
+  .export:hover {
+    background-color: #4593b9;
+    border: 1px solid #4593b9;
+  }
+  .cancel:hover {
+    background-color: #9d0404;
+    border: 1px solid #9d0404;
+  }
+}
+
+select[readonly] {
+  pointer-events: none;
+}

@@ -1,0 +1,217 @@
+<div id="page-reconciliation">
+  <h3 class="title">{{ "reconciliationTransaction" | translate }}</h3>
+  <!-- <div class="functions">
+        <button class="add" (click)="openFormAdd()">Tạo mới đối tác</button>
+    </div> -->
+  <span class="ic-filters" (click)="showFilter = !showFilter"></span>
+  <div class="filters" *ngIf="showFilter">
+    <div *ngIf="isAdmin">
+      <label for="">{{ "partnerCode" | translate }}</label>
+      <input type="text" maxlength="20" placeholder="Nhập mã đối tác" [(ngModel)]="filter.partnerCode"
+        (keyup)="filterPartnerKeyup($event)" (click)="filterPartnerClick($event)" />
+      <div *ngIf="showListPartner" class="listPartner">
+        <p class="listPartnerItem" *ngFor="let item of partnerCodesFilter" (click)="choiceItem(item, $event)">
+          {{ item.partnerName }}
+        </p>
+        <p class="listPartnerItem" *ngIf="partnerCodesFilter.length == 0">
+          Không tìm thấy dữ liệu
+        </p>
+      </div>
+      <!-- <select name="" id="" [(ngModel)]="filter.partnerCode">
+        <option
+          *ngFor="let item of partnerCodes"
+          value="{{ item.partnerCode }}"
+        >
+          {{ item.partnerName }}
+        </option>
+      </select> -->
+    </div>
+    <div *ngIf="isAdmin">
+      <label for="">{{ "partnerName" | translate }}</label>
+      <input type="text" maxlength="20" name="partnerName" placeholder="Nhập tên đối tác" value="{{ partnerName }}"
+        (keyup)="filterPartnerNameKeyUp($event)" (click)="filterPartnerNameClick($event)" />
+      <div *ngIf="showNamePartner" class="listPartner">
+        <p class="listPartnerItem" *ngFor="let item of partnerNamesFilter" (click)="choiceItem(item, $event)">
+          {{ item.partnerName }}
+        </p>
+        <p class="listPartnerItem" *ngIf="partnerNamesFilter.length == 0">
+          Không tìm thấy dữ liệu
+        </p>
+      </div>
+    </div>
+    <div>
+      <label for="">{{ "serviceType" | translate }}</label>
+      <select name="" id="" [(ngModel)]="filter.typeService">
+        <option *ngFor="let item of serviceTypes" value="{{ item.code }}">
+          {{ item.name }}
+        </option>
+      </select>
+    </div>
+    <div>
+      <label for="">{{ "reconciliationStatus" | translate }}</label>
+      <select name="" id="" [(ngModel)]="filter.status">
+        <option *ngFor="let item of statusReconciliations" value="{{ item.statusCode }}">
+          {{ item.description }}
+        </option>
+      </select>
+    </div>
+    <div>
+      <label for="">{{ "fromDate" | translate }}</label>
+      <mat-form-field appearance="fill">
+        <mat-label></mat-label>
+        <input matInput [matDatepicker]="pickerFromDate" [(ngModel)]="filter.startDate" [min]="minDate"
+          [max]="maxDate" />
+        <mat-datepicker-toggle matSuffix [for]="pickerFromDate"></mat-datepicker-toggle>
+        <mat-datepicker #pickerFromDate inline="true"></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div>
+      <label for="">{{ "toDate" | translate }}</label>
+      <mat-form-field appearance="fill">
+        <mat-label></mat-label>
+        <input matInput [matDatepicker]="pickerToDate" [(ngModel)]="filter.endDate" [min]="filter.startDate"
+          [max]="maxDate" />
+        <mat-datepicker-toggle matSuffix [for]="pickerToDate"></mat-datepicker-toggle>
+        <mat-datepicker #pickerToDate inline="true"></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div>
+      <label for="">&nbsp;</label>
+      <button class="search" (click)="pagination.page = 1; search()"></button>
+    </div>
+  </div>
+  <div class="filters">
+    <!-- <div>
+      <label for="">&nbsp;</label>
+      <button (click)="pagination.page = 1; search()">
+        {{ "search" | translate }}
+      </button>
+    </div> -->
+  </div>
+  <div class="functions">
+    <div class="export-button">
+      <button [disabled]="!itemIdChoice" [class.disabled]="!itemIdChoice" class="export"
+        (click)="showType($event,itemChoice)">
+        {{ "exportDataReconciliation" | translate }}
+      </button>
+      <div *ngIf="showListType" class="listType">
+        <p *ngFor="let item of fileType" class="showTypeExport" (click)="export(item, itemChoice)">
+          {{item.name}}
+        </p>
+      </div>
+    </div>
+
+
+    <button [disabled]="!itemIdChoice" [class.disabled]="!itemIdChoice" class="export" (click)="routerLink(itemChoice)">
+      {{ "mishandling" | translate }}
+    </button>
+    <!-- <button class="cancel">{{ "cancelReconciliation" | translate }}</button> -->
+  </div>
+
+  <div class="box-datas">
+    <b>{{ "listReconciliationTransaction" | translate }}</b>
+    <div class="pages">
+      {{ "display" | translate }} {{ "from" | translate }}
+      <b>{{ pagination.start }}</b> {{ "to" | translate }}
+      <b>{{ pagination.end }}</b> {{ "on" | translate }}
+      <b>{{ pagination.total }}</b>
+      {{ "result" | translate }}&nbsp;&nbsp;&nbsp;&nbsp;<span class="next" (click)="next()"
+        [class.disable]="pagination.end == pagination.total"></span><span class="prev"
+        [class.disable]="pagination.start <= 1" (click)="prev()"></span>
+    </div>
+
+    <div class="box-tables">
+      <table class="styled-table scroll">
+        <thead>
+          <tr>
+            <th><span class="checkbox"></span></th>
+            <th class="center">{{ "stt" | translate }}</th>
+            <th class="center">{{ "partnerCode" | translate }}</th>
+            <th class="center">{{ "partnerName" | translate }}</th>
+            <th class="center">{{ "serviceType" | translate }}</th>
+            <th class="center">{{ "reconciliationDate" | translate }}</th>
+            <th class="center">
+              {{ "totalNumberOfSuccessfulTransactions" | translate }}
+            </th>
+            <th class="center">
+              {{ "totalValueOfSuccessfulTransactions" | translate }} (đ)
+            </th>
+            <th class="center">{{ "timeCreateReconciliation" | translate }}</th>
+            <th class="center">{{ "status" | translate }}</th>
+            <!-- <th class="center" style="width: 130px">{{"action" | translate}}</th> -->
+            <!-- <th class="center" style="width: 130px"></th> -->
+          </tr>
+        </thead>
+        <tbody *ngIf="pagination.total > 0">
+          <tr *ngFor="let item of datasTable; let i = index">
+            <td>
+              <span class="checkbox" [class.choice]="itemIdChoice == item.id" (click)="clickRow(item)"></span>
+            </td>
+            <td class="center">{{ i + pagination.start }}</td>
+            <td class="center">{{ item.partnerCode }}</td>
+            <td class="center">{{ item.partnerName }}</td>
+            <td class="center">{{ item.typeService }}</td>
+            <td class="center">
+              {{ item.fromDate + "000" | date: "dd/MM/YYYY" }}
+            </td>
+            <td class="center">{{ item.totalTransaction }}</td>
+            <td class="center">{{ covertPrice(item.totalAmount) }}</td>
+            <td class="center">
+              {{ item.fromDate + "000" | date: "dd/MM/YYYY" }}
+            </td>
+            <td class="center" *ngIf="item.status == '01'|| item.status == '02' || item.status == '03'">{{
+              item.description }}</td>
+            <td class="center" *ngIf="item.status == '00'">
+              <a (click)="completeLink(item)" class="button">{{ item.description }}</a>
+            </td>
+            <!-- <td class="center"> -->
+            <!-- <a
+                [routerLink]="routerLink(item)"
+                *ngIf="
+                  item.status == '01' ||
+                  item.status == '02' ||
+                  item.status == '03'
+                "
+                class="button"
+                >{{ "mishandling" | translate }}</a
+              > -->
+            <!-- <a
+                [routerLink]="routerLink(item)"
+                *ngIf="item.status == '00'"
+                class="button"
+                >{{ "detailsMisalignmentHandling" | translate }}</a
+              > -->
+
+            <!-- <a [routerLink]="'/admin/transaction/reconciliation/' + item.id">Kết quả xử lý sai lệch</a>
+                            <a [routerLink]="'/admin/transaction/reconciliation/' + item.id">Chi tiết xử lý sai lệch</a> -->
+            <!-- </td> -->
+            <!-- <td class="center"><button class="export" (click)="export(item)" >{{ "exportDataReconciliation" | translate }}</button></td> -->
+          </tr>
+        </tbody>
+        <tbody *ngIf="pagination.total == 0">
+          <tr>
+            <td class="center" colspan="11">
+              {{ "dataNotFound" | translate }}
+            </td>
+          </tr>
+        </tbody>
+        <!-- <tbody *ngIf="!rights.view">
+          <tr>
+            <td
+              class="center"
+              [colSpan]="
+                rights.delete || rights.edit || rights.view ? '5' : '4'
+              "
+              style="color: #61b3db"
+            >
+              Bạn có không quyền xem dữ liệu
+            </td>
+          </tr>
+        </tbody> -->
+      </table>
+    </div>
+  </div>
+</div>
+
+<a href="" target="_blank" #dowloadLink></a>
+<!-- <app-form-user [data]="dataItem" *ngIf="showForm" [(showForm)]="showForm" (search)="search()"></app-form-user> -->

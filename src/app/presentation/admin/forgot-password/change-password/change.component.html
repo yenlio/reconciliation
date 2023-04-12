@@ -1,0 +1,46 @@
+<section id="page-change">
+  <mat-grid-list cols="3">
+    <mat-grid-tile colspan="3">
+      <mat-card>
+        <mat-card-header color="primary" class="logo">
+          <mat-card-title>{{"changePasswordTitle" | translate }}</mat-card-title>
+        </mat-card-header>
+        <form >
+          <mat-form-field style="width: 400px !important">
+            <mat-label>{{"newPassword" | translate }}</mat-label>
+            <input [formControl]="password" type="password"  placeholder="Nhập mật khẩu mới" (click)="change()" matInput [errorStateMatcher]="matcher"/>
+            <mat-error *ngIf="password.hasError('required')">
+              Mật khẩu không để <strong>trống!</strong>
+            </mat-error>
+          </mat-form-field>
+          <span class="error"  *ngIf="tooShort">
+            Mật khẩu quá ngắn!
+          </span>
+          <br />
+          <mat-form-field style="width: 400px !important">
+            <mat-label>{{"reNewPassword" | translate }}</mat-label>
+            <input type="password" placeholder="Nhập lại mật khẩu mới" [formControl]="repassword" (click)="change()" matInput [errorStateMatcher]="matcher"/>
+            <mat-error *ngIf="repassword.hasError('required')">
+              Nhập lại mật khẩu không được <strong>trống!</strong>
+            </mat-error>
+          </mat-form-field>
+          <span class="error"  *ngIf="!repassword.hasError('required') && notMatch">
+            Mật khẩu không khớp!
+          </span>
+          <!-- <mat-form-field class="otp-field" appearance="fill">
+            <mat-label>{{"confirmCode" | translate }}</mat-label>
+            <input matInput type="text" [formControl]="captchaCode">
+          </mat-form-field> -->
+          <br />
+          <div class="forgot-submit">
+            <button type="submit" mat-raised-button color="primary" (click)="changePassword($event)">
+              {{"send" | translate }}
+            </button>
+          </div>
+        </form>
+        
+        <p class="information">Mọi thông tin xin liên hệ...</p>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</section>

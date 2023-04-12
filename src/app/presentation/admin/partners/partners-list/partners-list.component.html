@@ -1,0 +1,124 @@
+<div>
+  <h3 class="title">Đối tác</h3>
+
+  <div class="functions">
+    <button class="add" (click)="openFormAdd()">Tạo mới đối tác</button>
+  </div>
+  <div class="filters">
+    <div>
+      <label for="">Từ khóa</label>
+      <input
+        type="text"
+        name="keyword"
+        placeholder="Họ tên, tên đăng nhập..."
+        (keyup.enter)="search()"
+        (keyup)="search()"
+      />
+    </div>
+    <div>
+      <label for="">&nbsp;</label>
+      <button (click)="search()"></button>
+    </div>
+  </div>
+
+  <div class="box-datas">
+    <b>Danh sách đối tác</b>
+    <div class="pages">
+      Hiện thị từ <b>1</b> đến <b>10</b> trên <b>10</b> kết
+      quả&nbsp;&nbsp;&nbsp;&nbsp;<span class="next"></span
+      ><span class="prev"></span>
+    </div>
+
+    <div class="box-tables">
+      <table class="styled-table scroll">
+        <thead>
+          <tr>
+            <th class="center">STT</th>
+            <th>Tên đối tác</th>
+            <th>Dịch vụ</th>
+            <th>Nhóm người dùng</th>
+            <th>Đối tác</th>
+            <th class="center" style="width: 130px"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Nguyễn Quý Cường</td>
+            <td>cuongnq</td>
+            <td>Admin</td>
+            <td>Epay</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>Nguyễn Quý Cường</td>
+            <td>cuongnq</td>
+            <td>Admin</td>
+            <td>Epay</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>Nguyễn Quý Cường</td>
+            <td>cuongnq</td>
+            <td>Admin</td>
+            <td>Epay</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>Nguyễn Quý Cường</td>
+            <td>cuongnq</td>
+            <td>Admin</td>
+            <td>Napas</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>Nguyễn Quý Cường</td>
+            <td>cuongnq</td>
+            <td>Admin</td>
+            <td>VETC</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>Nguyễn Quý Cường</td>
+            <td>cuongnq</td>
+            <td>Admin</td>
+            <td>Phần mềm thu phí</td>
+          </tr>
+        </tbody>
+        <!-- <tbody *ngIf="datasTable?.totalData > 0 && rights.view">
+                    <tr *ngFor="let item of datasTable.data; let i = index">
+                        <td class="center">{{i + datasTable?.start}}</td>
+                        <td>
+                            {{item?.fullname}}
+                        </td>
+                        <td>
+                            {{item?.username}}
+                        </td>
+                        <td><span *ngFor="let group of item.userGroups" class="item">{{group.name}}</span></td>
+                        <td class="center" *ngIf="rights.delete || rights.edit  || rights.view">
+                            <a class="delete" (click)="remove(item.id)" *ngIf="rights.delete" title="Xóa"
+                                href="javascript:void(0)"></a>
+                            <a class="edit" title="Chỉnh sửa" *ngIf="rights.edit || rights.view"
+                                (click)="openFormEdit(item)"></a>
+                        </td>
+                    </tr>
+                </tbody> -->
+        <!-- <tbody *ngIf="datasTable?.totalData == 0 && rights.view">
+                    <tr>
+                        <td class="center" [colSpan]="rights.delete || rights.edit  || rights.view? '5':'4'">
+                            Không tìm thấy dữ liệu</td>
+                    </tr>
+                </tbody>
+                <tbody *ngIf="!rights.view">
+                    <tr>
+                        <td class="center" [colSpan]="rights.delete || rights.edit  || rights.view? '5': '4'"
+                            style="color: #61b3db;">
+                            Bạn có không quyền xem dữ liệu</td>
+                    </tr>
+                </tbody> -->
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- <app-form-user [data]="dataItem" *ngIf="showForm" [(showForm)]="showForm" (search)="search()"></app-form-user> -->

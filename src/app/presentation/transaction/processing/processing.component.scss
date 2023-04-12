@@ -1,0 +1,58 @@
+#page-processing {
+  // .filters:nth-of-type(1) {
+  //   > div {
+  //     width: 100% !important;
+  //   }
+
+  //   > div:nth-last-child(2) {
+  //     width: auto;
+  //   }
+
+  //   mat-form-field {
+  //     width: 100%;
+  //   }
+
+  //   .mat-form-field-infix {
+  //     width: 100%;
+  //   }
+  // }
+
+  .box-tables {
+    height: calc(100vh - 294px);
+  }
+}
+
+a.button {
+  // text-decoration: none;
+  color: #222;
+}
+
+.filters {
+  div {
+    .mat-form-field {
+      width: 100%;
+    }
+  }
+}
+
+.listPartner {
+  position: absolute;
+  background-color: white;
+  width: 100%;
+  top: 100%;
+  left: 0px;
+  z-index: 99999;
+  box-shadow: 0px 0px 2px #ccc;
+  max-height: 120px;
+  overflow: auto;
+}
+
+.listPartnerItem {
+  margin-bottom: 0px;
+  line-height: 30px;
+  padding: 0px 15px;
+}
+.search:hover {
+  background-color: #4593b9;
+  border: 1px solid #4593b9;
+}

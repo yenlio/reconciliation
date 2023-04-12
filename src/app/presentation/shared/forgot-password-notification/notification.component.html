@@ -1,0 +1,43 @@
+<h1 class="title" mat-dialog-title>{{"systemNotification" | translate }}</h1>
+<div class="body" *ngIf="data.countResend">
+  <div class="content-body">
+    <img class="warning" src="/assets/images/ic-warning.png" alt="">
+    <span class="content">Quý khách đã click gửi lại mã quá <strong style="color: red;">5</strong> lần cho phép. Vui
+      lòng thao tác lại. Hệ thống sẽ tự đồng chuyển về trang đăng nhập sau
+      <span style="color: red;font-weight: bold;">{{counter}}</span> giây!</span>
+  </div>
+  <div class="close" mat-dialog-actions>
+    <button class="return" style="width: max-content;" (click)="returnToLogin()">{{"returnToLogin" | translate
+      }}</button>
+  </div>
+</div>
+
+<div class="body" *ngIf="data.wrongOTP">
+  <div class="content-body">
+    <img class="warning" src="/assets/images/ic-warning.png" alt="">
+    <span class="content">Mã xác thực không đúng. Quý khách còn <span
+        style="color: red;font-weight: bold;">{{data.countWrongOtp}}</span> lần nhập lại.
+      <p class="content" style="padding: 0px;" *ngIf="data.countWrongOtp == 0">Hệ thống sẽ tự đồng chuyển về trang đăng
+        nhập sau <span style="color: red;font-weight: bold;">{{counter}}</span> giây!</p>
+    </span>
+  </div>
+  <div class="close" mat-dialog-actions>
+    <button class="return" style="width: max-content;" *ngIf="data.countWrongOtp == 0"
+      (click)="returnToLogin()">{{"returnToLogin" | translate }}</button>
+    <button *ngIf="data.countWrongOtp != 0" (click)="confirm()">{{"agree" | translate }}</button>
+  </div>
+</div>
+
+<div class="body" *ngIf="data.missOTP">
+  <div class="content-body">
+    <img class="warning" src="/assets/images/ic-warning.png" alt="">
+    <span class="content">Mã xác thực hết hiệu lực.
+      <p class="content" style="padding: 0px;">Hệ thống sẽ tự đồng chuyển về trang đăng nhập sau <span
+          style="color: red;font-weight: bold;">{{counter}}</span> giây!</p>
+    </span>
+  </div>
+  <div class="close" mat-dialog-actions>
+    <button class="return" style="width: max-content;" *ngIf="data.missOTP" (click)="returnToLogin()">{{"returnToLogin"|
+      translate }}</button>
+  </div>
+</div>

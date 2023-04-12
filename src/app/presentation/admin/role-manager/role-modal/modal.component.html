@@ -1,0 +1,26 @@
+<div class="container">
+  <h1 class="title" *ngIf="isEdit" mat-dialog-title>{{"editRole" | translate}}</h1>
+  <h1 class="title" *ngIf="!isEdit" mat-dialog-title>{{"addRole" | translate}}</h1>
+  <div class="body" mat-dialog-content>
+    <form [formGroup]="roleForm">
+      <div>
+        <mat-label>{{"roleName" | translate }}</mat-label>
+        <mat-form-field class="input_name"><input formControlName="name" matInput type="text">
+        </mat-form-field>
+      </div>
+      <div [hidden]="!isEdit" class="checkbox">
+        <label class="checkbox_item" formArrayName="permissions"
+          *ngFor="let perm of permissionsArr.controls; index as i">
+          <input type="checkbox" [formControlName]="i" (change)="checked($event, permissionList[i])">
+          {{permissionList[i].description}}
+        </label>
+      </div>
+      <div class="close" mat-dialog-actions>
+
+        <button mat-button type="submit" (click)="submitEdit()" *ngIf="isEdit">{{"edit" | translate }}</button>
+        <button mat-button type="submit" (click)="submitAdd()" *ngIf="!isEdit">{{"save" | translate }}</button>
+        <button class="close-button" mat-button (click)="closed($event)">{{ "close" | translate }}</button>
+      </div>
+    </form>
+  </div>
+</div>

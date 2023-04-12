@@ -1,0 +1,10 @@
+<h1 class="title" mat-dialog-title>{{"systemNotification" | translate }}</h1>
+<div class="body">
+  <div class="content-body">
+    <img class="warning" [src]="data.success ? '/assets/images/ic-success.png' :'/assets/images/ic-warning.png'" alt=""><span class="content">{{data.message}}</span>
+  </div>
+  
+  <div class="close" mat-dialog-actions>
+    <button  (click)="closed()">{{"close" | translate }}</button>
+  </div>
+</div>

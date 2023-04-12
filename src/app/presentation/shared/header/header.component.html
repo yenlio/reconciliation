@@ -1,0 +1,67 @@
+<head>
+  <meta charset="UTF-8" />
+</head>
+<div class="logo">
+  <div (click)="redirectAdmin()">
+    <div><img src="/assets/images/logo.png" /></div>
+  </div>
+</div>
+<span class="current-date"
+  >Hôm nay, {{ date }} tháng {{ month }} năm {{ year }}</span
+>
+
+<div class="info" style=" z-index: -1;">
+  <div class="lang">
+    <!-- <select id="lang" name="language" (change)="switchLang($event)">
+      <option value="en" [selected]="lang=='en'"> <img with="20" height="20" src="../../../../assets/images/united-kingdom.png"> English</option>
+      <option value="vi" [selected]="lang=='vi'" >&emsp;&emsp;&emsp;Tiếng Việt</option>
+      <option value="EUR">🇪🇺&emsp;€&emsp;EUR&emsp;</option>
+    </select> -->
+    {{ selectedValue }}
+    <span (click)="showBoxLanguage = true">{{ languageCurrent.name }}</span>
+    <div *ngIf="showBoxLanguage" class="boxItem">
+      <p 
+        *ngFor="let item of languages"
+        class="{{ item.key }}"
+        (click)="switchLang(item)"
+      >
+      <img *ngIf="item.key == 'vi'" src="../../../../assets/images/vietnam.png" width="20px" height="20px"  />
+      <img *ngIf="item.key == 'en'" src="../../../../assets/images/united-kingdom.png" width="20px" height="20px"  />
+    {{ item.name }}
+      </p>
+    </div>
+    <!-- <mat-form-field class="lang">
+      <mat-select
+        (selectionChange)="switchLang($event)"
+        [(value)]="selectedValue"
+        class="select"
+      >
+        <mat-option value="en">
+          <img
+            with="20"
+            height="20"
+            src="../../../../assets/images/united-kingdom.png"
+          />English</mat-option
+        >
+        <mat-option value="vi">
+          <img
+            with="20"
+            height="20"
+            src="../../../../assets/images/vietnam.png"
+          />
+          Tiếng Việt</mat-option
+        >
+      </mat-select>
+    </mat-form-field> -->
+  </div>
+
+  <div class="name">
+    <p>{{ username }}</p>
+    <!-- <p>{{infoUser?.accountTypes}}</p> -->
+  </div>
+
+  <div class="avatar" (click)="statusShowFunction = !statusShowFunction"></div>
+  <div class="functions" *ngIf="statusShowFunction">
+    <p (click)="logOut()">Đăng xuất</p>
+  </div>
+</div>

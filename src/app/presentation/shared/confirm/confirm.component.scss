@@ -1,0 +1,60 @@
+.title{
+    font-weight: 400;
+    font-size: 20px;
+    margin-left: 0px !important;
+  }
+  .warning{
+    position: relative;
+    top: 12px;
+    width: 40px;
+    height: 40px;
+    color: #4593b9;
+  }
+  .content{
+    font-weight: 400;
+    margin-top: 20px;
+    font-size: large;
+  }
+
+  .body{
+    padding-bottom: 20px;
+  }
+  .action{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    button{
+        width: 100px;
+        height: 40px;
+        border-radius: 8px;
+        box-shadow: 2px 3px 4px rgb(37 61 140 / 10%);
+        color: white;
+        margin: 20px;
+        border: 1px solid #c70000 ;   
+        background-color: #c70000 ;
+    
+    }   
+  
+    button:hover{
+      border: 1px solid #970000 ;   
+      background-color: #970000 ;
+    }
+  }
+
+.delete {
+      border: 1px solid #61b3db!important;
+      background-color: #61b3db!important;
+    
+    &:hover{
+      background-color: #4593b9!important;
+      border: 1px solid #4593b9!important;
+        
+    }
+}
+  
+  
+  
+  
+  
+  

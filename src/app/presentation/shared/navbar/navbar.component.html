@@ -1,0 +1,23 @@
+<ul class="sidebar">
+  <li>
+    <div>{{ version }}</div>
+  </li>
+  <li *ngFor="let item of breadcrumbService.menus">
+    <a
+      href="javascript:void(0)"
+      [class.active]="item.show"
+      (click)="showMenuChilds(item)"
+    >
+      <span class="icon"><img [src]="item?.icon" /></span>
+      {{ item?.name }}
+      <span class="down" *ngIf="item.childs.length > 0"></span>
+    </a>
+    <ul *ngIf="item.show">
+      <li *ngFor="let child of item.childs">
+        <a [routerLink]="child.link" [class.active]="child.active">{{
+          child.name
+        }}</a>
+      </li>
+    </ul>
+  </li>
+</ul>

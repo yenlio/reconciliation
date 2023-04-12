@@ -1,0 +1,96 @@
+ul {
+  margin: 0px;
+  padding: 0px;
+  &.sidebar {
+    > li {
+      div {
+        text-align: center;
+        vertical-align: middle;
+        color: white;
+        font-weight: 600;
+        font-size: 12px;
+      }
+      &:first-child {
+      }
+      > a {
+        display: block;
+        line-height: 47px;
+        padding: 0px 20px;
+        font-weight: 700;
+        font-size: 13px;
+        text-transform: uppercase;
+        /* identical to box height */
+
+        color: white;
+        text-decoration: none;
+        .icon {
+          width: 22px;
+          height: 22px;
+          margin-top: 12.5px;
+          float: left;
+          display: block;
+          margin-right: 12px;
+          position: relative;
+          img {
+            width: 20px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+        }
+        .down {
+          font-size: 20px;
+          font-weight: bold;
+          float: right;
+          width: 14px;
+          height: 14px;
+          text-align: center;
+          line-height: 35px;
+          background-repeat: no-repeat;
+          background-image: url("/assets/images/ic-next1.png");
+          background-position: center;
+          margin-top: 16.5px;
+          display: block;
+          transform: rotate(0deg);
+          transition: 0.1s;
+          background-size: 20px;
+        }
+        &.active {
+          .down {
+            transform: rotate(90deg);
+          }
+        }
+      }
+      ul {
+        li {
+          a {
+            color: white;
+            line-height: 47px;
+            padding-left: 54px;
+            padding-right: 20px;
+            display: block;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            border-radius: 10px;
+            transition: 0.3s all;
+            margin-left: 10px;
+            margin-right: 10px;
+            /* identical to box height */
+            &.active {
+              font-weight: 700;
+              background: rgb(209, 213, 219);
+              &:hover {
+                background: rgb(209, 213, 219);
+              }
+            }
+            &:hover {
+              background-color: rgb(209, 213, 219);
+            }
+          }
+        }
+      }
+    }
+  }
+}
